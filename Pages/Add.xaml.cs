@@ -1,4 +1,5 @@
 ﻿using Documents_Lukashevich.Classes;
+using Documents_Lukashevich.Model;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -16,6 +17,12 @@ namespace Documents_Lukashevich.Pages
         public Add(DocumentContext Document = null)
         {
             InitializeComponent();
+
+            var responsibles = new ResponsibleContext().GetAllResponsibles();
+            cb_user.ItemsSource = responsibles;
+            if (responsibles.Count > 0)
+                cb_user.SelectedIndex = 0;
+
             if (Document != null)
             {
                 this.Document = Document;
@@ -25,7 +32,16 @@ namespace Documents_Lukashevich.Pages
                     src.Source = new BitmapImage(new Uri(s_src));
                 }
                 tb_name.Text = this.Document.name;
-                tb_user.Text = this.Document.user;
+
+                foreach (Responsible item in cb_user.Items)
+                {
+                    if (item.ФИО == this.Document.user)
+                    {
+                        cb_user.SelectedItem = item;
+                        break;
+                    }
+                }
+
                 tb_id.Text = this.Document.id_document.ToString();
                 tb_date.Text = this.Document.date.ToString("dd.MM.yyyy");
                 tb_status.SelectedIndex = this.Document.status;
@@ -65,9 +81,9 @@ namespace Documents_Lukashevich.Pages
                 MessageBox.Show("Укажите наименование");
                 return;
             }
-            if (tb_user.Text.Length == 0)
+            if (cb_user.SelectedItem == null)
             {
-                MessageBox.Show("Укажите ответственного");
+                MessageBox.Show("Выберите ответственного");
                 return;
             }
             if (tb_id.Text.Length == 0)
@@ -96,7 +112,7 @@ namespace Documents_Lukashevich.Pages
                 DocumentContext newDocument = new DocumentContext();
                 newDocument.src = s_src;
                 newDocument.name = tb_name.Text;
-                newDocument.user = tb_user.Text;
+                newDocument.user = ((Responsible)cb_user.SelectedItem).ФИО;
                 newDocument.id_document = int.Parse(tb_id.Text);
                 DateTime newDate = new DateTime();
                 DateTime.TryParse(tb_date.Text, out newDate);
@@ -112,7 +128,7 @@ namespace Documents_Lukashevich.Pages
                 newDocument.src = s_src;
                 newDocument.id = Document.id;
                 newDocument.name = tb_name.Text;
-                newDocument.user = tb_user.Text;
+                newDocument.user = ((Responsible)cb_user.SelectedItem).ФИО;
                 newDocument.id_document = int.Parse(tb_id.Text);
                 DateTime newDate = new DateTime();
                 DateTime.TryParse(tb_date.Text, out newDate);

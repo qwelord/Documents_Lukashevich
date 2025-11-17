@@ -8,16 +8,25 @@
       Title="Main">
 
     <Grid Background="#FFEFEFEF">
-        <Grid Height="75" VerticalAlignment="Top" Background="#FFBFBFBF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#FFBFBFBF">
+            <Image Source="/Documents_Lukashevich;component/Image/icon-black.png" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             <Label Content="Учёт входящих и исходящих документов" FontSize="26" VerticalAlignment="Center" Margin="60,0,0,0"/>
-            <Image Source="/Documents_Lukashevich;component/Image/icon-black.png" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0"/>
-            <Button Content="Выйти" Width="100" Height="30" HorizontalAlignment="Right" Margin="0,20,10,0" VerticalAlignment="Top" Click="Exit"/>
+            <Button Content="Выйти" Width="100" Height="30" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Click="Exit"/>
         </Grid>
 
-        <ScrollViewer Margin="10,85,10,60" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="parent"/>
         </ScrollViewer>
 
-        <Button Content="Добавить" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Click="AddDocuments"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,10">
+            <Button Content="Добавить" Width="100" Height="30" Margin="5,0,0,0" Click="AddDocuments"/>
+            <Button Content="Ответственные" Width="100" Height="30" Margin="5,0,0,0" Click="ManageResponsibles"/>
+        </StackPanel>
     </Grid>
 </Page>

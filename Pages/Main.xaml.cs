@@ -28,5 +28,10 @@ namespace Documents_Lukashevich.Pages
         {
             MainWindow.init.OpenPages(MainWindow.pages.add);
         }
+
+        private void ManageResponsibles(object sender, RoutedEventArgs e)
+        {
+            MainWindow.init.OpenPages(MainWindow.pages.responsibles);
+        }
     }
 }

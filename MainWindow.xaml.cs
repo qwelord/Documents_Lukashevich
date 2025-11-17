@@ -8,7 +8,7 @@ namespace Documents_Lukashevich
     {
         public static MainWindow init;
         public List<DocumentContext> AllDocuments = new DocumentContext().AllDocuments();
-        public enum pages { main, add }
+        public enum pages { main, add, responsibles }
 
         public MainWindow()
         {
@@ -23,6 +23,8 @@ namespace Documents_Lukashevich
                 frame.Navigate(new Pages.Main());
             else if (_pages == pages.add)
                 frame.Navigate(new Pages.Add());
+            else if (_pages == pages.responsibles)
+                frame.Navigate(new Pages.Responsibles());
         }
     }
 }

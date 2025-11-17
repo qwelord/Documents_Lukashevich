@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Documents_Lukashevich.Classes;
 
 namespace Documents_Lukashevich
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow init;
+        public List<DocumentContext> AllDocuments;
+        public enum pages { main, add }
+
         public MainWindow()
         {
             InitializeComponent();
+            init = this;
+            AllDocuments = new DocumentContext().AllDocuments();
+            OpenPages(pages.main);
+        }
+
+        public void OpenPages(pages pages)
+        {
+            switch (pages)
+            {
+                case pages.main:
+                    frame.Navigate(new Pages.Main());
+                    break;
+                case pages.add:
+                    frame.Navigate(new Pages.Add());
+                    break;
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
+using System.Collections.Generic;
 using Documents_Lukashevich.Classes;
 
 namespace Documents_Lukashevich
@@ -7,28 +7,22 @@ namespace Documents_Lukashevich
     public partial class MainWindow : Window
     {
         public static MainWindow init;
-        public List<DocumentContext> AllDocuments;
+        public List<DocumentContext> AllDocuments = new DocumentContext().AllDocuments();
         public enum pages { main, add }
 
         public MainWindow()
         {
             InitializeComponent();
             init = this;
-            AllDocuments = new DocumentContext().AllDocuments();
             OpenPages(pages.main);
         }
 
-        public void OpenPages(pages pages)
+        public void OpenPages(pages _pages)
         {
-            switch (pages)
-            {
-                case pages.main:
-                    frame.Navigate(new Pages.Main());
-                    break;
-                case pages.add:
-                    frame.Navigate(new Pages.Add());
-                    break;
-            }
+            if (_pages == pages.main)
+                frame.Navigate(new Pages.Main());
+            else if (_pages == pages.add)
+                frame.Navigate(new Pages.Add());
         }
     }
 }
